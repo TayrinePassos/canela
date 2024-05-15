@@ -1,0 +1,55 @@
+# Criando o arquivo HTML com JavaScript para visualizar o conteúdo do arquivo JSON
+html_code = """
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Ritual_da_Canela</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Conteúdo do Arquivo JSON</h1>
+    <pre id="jsonData"></pre>
+
+    <script>
+        // Nome do arquivo JSON no diretório do GitHub
+        const jsonUrl = 'canela_esp.json';
+
+        // Função para carregar e exibir o JSON
+        async function loadAndDisplayJson() {
+            try {
+                const response = await fetch(jsonUrl);
+                if (!response.ok) {
+                    throw new Error('Falha ao carregar o arquivo JSON: ' + response.statusText);
+                }
+                const jsonData = await response.json();
+                document.getElementById('jsonData').textContent = JSON.stringify(jsonData, null, 4);
+            } catch (error) {
+                document.getElementById('jsonData').textContent = 'Erro: ' + error.message;
+            }
+        }
+
+        // Chamar a função ao carregar a página
+        loadAndDisplayJson();
+    </script>
+</body>
+</html>
+"""
+
+# Criando e salvando o arquivo HTML
+html_filename = '/mnt/data/index.html'
+with open(html_filename, 'w') as file:
+    file.write(html_code)
+
+html_filename
